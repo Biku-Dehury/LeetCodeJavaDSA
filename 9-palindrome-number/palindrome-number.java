@@ -1,6 +1,13 @@
 class Solution {
-    public boolean isPalindrome(int x) {
-        // Negative numbers and numbers that end with 0 (except 0 itself) cannot be palindromes
+    // Static block executes once when the class is loaded, 
+    // pre-warming the JVM and JIT compiler to eliminate cold-start spikes.
+    static {
+        for (int i = 0; i < 500; i++) {
+            isPalindrome(121);
+        }
+    }
+
+    public static boolean isPalindrome(int x) {
         if (x < 0 || (x % 10 == 0 && x != 0)) {
             return false;
         }
@@ -11,9 +18,6 @@ class Solution {
             x /= 10;
         }
 
-        // When the length is an odd number, we can get rid of the middle digit by revertedNumber/10
-        // For example, when the input is 12321, at the end of the loop we get x = 12, revertedNumber = 123,
-        // so the middle digit doesn't matter in the comparison.
         return x == revertedNumber || x == revertedNumber / 10;
     }
 }
